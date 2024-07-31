@@ -1,7 +1,13 @@
+/*
+1. 3 buttons for selection
+2. button call "playround" with player selection
+3. div for displaying results
+4. display running score and announce winner once one player reaches 5 points
+5. merge ui to main 
+*/
 
-const humanSelection = () => prompt();
 const computerSelection = () => {
-    const num = getRandomInt(1, 3);
+    const num = getRandomInt(1, 4);
     if (num === 1) {
         return 'r';
     } else if (num ===2) {
@@ -57,7 +63,6 @@ function playRound(humanChoice, computerSelection) {
        winner = 'computer'
     }
     console.log(`winner is ${winner}`);
-
 }
 
 function getRandomInt(min, max) {
@@ -66,39 +71,70 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
 }
 
+function playOneRound(humanChoice) {
 
-//playRound(humanSelection, computerSelection);
+    
+    const computerChoice = computerSelection();
+    console.log(`human ${humanChoice} - computer ${computerChoice}`);
+    const result = game(humanChoice, computerChoice);
+    h_score += result[0];
+    c_score += result[1];
+    console.log(`score : ${h_score}, ${c_score}`)
+    return [h_score, c_score];
 
-// a <p> with red text that says “Hey I’m red!”
-// an <h3> with blue text that says “I’m a blue h3!”
-// a <div> with a black border and pink background color with the following elements inside of it:
-//  another <h1> that says “I’m in a div”
-//   a <p> that says “ME TOO!”
-//  Hint for this one: after creating the <div> with createElement, append the <h1> and <p> to it before adding it to the container.
+}
 
-const container = document.querySelector('.practice');
-const text = document.createElement('p');
-text.innerText = 'Hey im red!';
-text.style.color ='red'
+function updateScoreSection(score, id) {
+    const element=document.querySelector(`#${id}`);
+    element.innerHTML = score;
+}
 
-const h3 = document.createElement('h3');
-h3.innerText = 'im a blue h3';
-h3.style.color = 'blue';
+function declareWinner(winner) {
+    const element = document.querySelector('.winner');
+    element.innerHTML = `winner is ${winner}!`;
+}
+function undeclareWinner(winner) {
+    const element = document.querySelector('.winner');
+    element.innerHTML = '';
+}
 
-console.log(container)
-container.appendChild(text);
-container.appendChild(h3);
+function disableButtons(isDisabled){
+    buttons.forEach((button) => button.disabled = isDisabled);
+}
 
-const div = document.createElement('div');
-div.style.cssText = 'border: 1px solid black; background-color: pink';
+function restart() {
+    h_score, c_score = 0;
+    winner = '';
+    disableButtons(false);
+    updateScoreSection(0, 'player_score');
+    updateScoreSection(0, 'computer_score');
+    undeclareWinner();
+}
 
-const h1 = document.createElement('h1');
-h1.innerHTML = "im in a div";
+let h_score = 0;
+let c_score = 0;
+const MAX_SCORE = 5;
+let winner='';
 
-const p = document.createElement('p');
-p.innerText = 'me too!';
+const buttons = document.querySelectorAll(".choice");
 
-div.appendChild(h1);
-div.appendChild(p);
+buttons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+        const humanChoice = e.target.id;
+        const result = playOneRound(humanChoice);
+        updateScoreSection(result[0], 'player_score');
+        updateScoreSection(result[1], 'computer_score');
+        if (h_score === MAX_SCORE) {
+            winner = 'player';
+        } else if (c_score === MAX_SCORE) {
+            winner = 'computer'
+        }
+        if (winner.length >0) {
+            declareWinner(winner);
+            disableButtons(true);
+        }
+    });
+})
 
-container.appendChild(div);
+const restartButton = document.querySelector("#restart");
+restartButton.addEventListener("click", restart);

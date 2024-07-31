@@ -1,0 +1,81 @@
+
+html, body {
+    width: 100%;
+    height: 100%;
+    background-color: aquamarine;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} 
+
+.practice {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid black;
+    width: auto;
+    height: auto;
+}
+
+#heading {
+    font-family:'Courier New', Courier, monospace;
+    font-size: 50px;
+    font-weight: 900;
+    color:coral;
+}
+.input {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10%;
+   
+}
+
+.input button {
+    background-color:yellowgreen; /* Green background */
+    border: none;             /* Remove default border */
+    color: rgb(255, 255, 49);             /* White text */
+    padding: 15px 32px;       /* Padding */
+    text-align: center;       /* Center text */
+    text-decoration: none;    /* Remove underline */
+    display: inline-block;    /* Inline-block element */
+    font-size: 24px;          /* Font size */
+    margin: 4px 2px;          /* Margin */
+    cursor: pointer;          /* Pointer cursor on hover */
+    border-radius: 12px;      /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+.input button:hover {
+    background-color:blueviolet; /* Darker green on hover */
+}
+
+.input button:active {
+    background-color: blueviolet; /* Even darker green when clicked */
+}
+
+.results {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    gap: 40%;
+}
+.result {
+    border: 2px solid black;
+    font-size: 24px;  
+}
+#restart button {
+    background-color:rgb(98, 182, 242); /* Green background */
+    border: none;             /* Remove default border */
+    color: rgb(255, 255, 49);             /* White text */
+    padding: 15px 32px;       /* Padding */
+    text-align: center;       /* Center text */
+    text-decoration: none;    /* Remove underline */
+    display: inline-block;    /* Inline-block element */
+    font-size: 48px;          /* Font size */
+    margin: 4px 2px;          /* Margin */
+    cursor: pointer;          /* Pointer cursor on hover */
+    border-radius: 12px;      /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
